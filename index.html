@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Cinema Simulator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Work+Sans:wght@100;300;400;600;800&display=swap');
+        *{
+            box-sizing: border-box;
+            font-family: 'Work Sans';
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        /* MENU */
+        .contenedor-header{
+            background: #1e2326;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 99;
+        }
+        .contenedor-header header{
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .contenedor-header header .logo a{
+            font-family: 'Righteous';
+            font-size: 36px;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        .contenedor-header header ul{
+            display: flex;
+            list-style: none;
+        }
+        .contenedor-header header nav ul li a{
+            text-align: none;
+            color: #fff;
+            margin: 0 15px;
+            padding: 3px;
+            transition: .5s;
+            text-decoration: none;
+        }
+        .contenedor-header header nav ul li a:hover{
+            color: #FF6B35;
+        }
+        .nav-responsive{
+            background-color: #FF6B35;
+            color:#fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        /* SECCION INICIO */
+        .inicio{
+            background: url('img/ENAC1.jpg');
+            background-size: cover;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+        .inicio .contenido-banner{
+            padding: 40px;
+            background-color: rgba(30,35,38,0.9);
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            border-radius: 40px;
+            border: 3px solid #FF6B35;
+        }
+        .inicio .contenido-banner .logo-proyecto{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            color: #FF6B35;
+            margin-bottom: 20px;
+        }
+        .inicio .contenido-banner h1{
+            font-size: 48px;
+            font-family: 'Righteous';
+            color: #FF6B35;
+            margin-bottom: 10px;
+        }
+        .inicio .contenido-banner h2{
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 30px;
+        }
+        .inicio .contenido-banner .cta-buttons{
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .inicio .contenido-banner .cta-buttons a{
+            color: #fff;
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #FF6B35;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            transition: .3s;
+            background-color: transparent;
+        }
+        .inicio .contenido-banner .cta-buttons a:hover{
+            background-color: #FF6B35;
+            transform: translateY(-2px);
+        }
+
+        /* SECCION SOBRE EL PROYECTO */
+        .sobremi{
+            background-color: #1e2326;
+            color: #fff;
+            padding: 50px 20px;
+        }
+        .sobremi .contenido-seccion{
+            max-width: 1100px;
+            margin: auto;
+        }
+        .sobremi h2{
+            font-size: 48px;
+            font-family: 'Righteous';
+            text-align: center;
+            padding: 20px 0;
+            color: #FF6B35;
+        }
+        .sobremi .contenido-seccion p{
+            font-size: 18px;
+            line-height: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .sobremi .contenido-seccion p span{
+            color: #FF6B35;
+            font-weight: bold;
+        }
+        .sobremi .fila{
+            display: flex;
+            gap: 40px;
+        }
+        .sobremi .fila .col{
+            width: 50%;
+        }
+        .sobremi .fila .col h3{
+            font-size: 28px;
+            font-family: 'Righteous';
+            margin-bottom: 25px;
+            color: #FF6B35;
+        }
+        .sobremi .fila .col ul{
+            list-style: none;
+        }
+        .sobremi .fila .col ul li{
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #252A2E;
+            border-radius: 8px;
+            border-left: 4px solid #FF6B35;
+        }
+        .sobremi .fila .col ul li strong{
+            display: inline-block;
+            color: #FF6B35;
+            width: 150px;
+        }
+        .sobremi .contenedor-caracteristicas{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .sobremi .caracteristica{
+            background-color: #252A2E;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: .3s;
+            border: 2px solid transparent;
+        }
+        .sobremi .caracteristica:hover{
+            border-color: #FF6B35;
+            transform: translateY(-5px);
+        }
+        .sobremi .caracteristica i{
+            font-size: 40px;
+            color: #FF6B35;
+            margin-bottom: 15px;
+        }
+        .sobremi .caracteristica h4{
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #FF6B35;
+        }
+        .sobremi button{
+            cursor: pointer;
+            background-color: transparent;
+            border: 2px solid #FF6B35;
+            width: fit-content;
+            display: block;
+            margin: 40px auto;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            position: relative;
+            z-index: 10;
+            border-radius: 25px;
+            transition: .3s;
+        }
+        .sobremi button:hover{
+            background-color: #FF6B35;
+            transform: translateY(-2px);
+        }
+
+        /* SECCION TECNOLOGIAS */
+        .skills{
+            background-color: #252A2E;
+            color: #fff;
+            padding: 50px 20px;
+        }
+        .skills .contenido-seccion{
+            max-width: 1100px;
+            margin: auto;
+        }
+        .skills h2{
+            font-size: 48px;
+            font-family: 'Righteous';
+            text-align: center;
+            padding: 20px 0;
+            color: #FF6B35;
+        }
+        .skills .fila{
+            display: flex;
+            gap: 40px;
+        }
+        .skills .fila .col{
+            width: 50%;
+            padding: 0 20px;
+        }
+        .skills .fila .col h3{
+            font-size: 28px;
+            font-family: 'Righteous';
+            margin-bottom: 25px;
+            color: #FF6B35;
+        }
+        .skills .skill{
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #1e2326;
+            border-radius: 10px;
+            border-left: 4px solid #FF6B35;
+        }
+        .skills .skill > span{
+            font-weight: bold;
+            display: block;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .skills .skill .barra-skill{
+            height: 12px;
+            width: 100%;
+            background-color: #131517;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .skills .skill .progreso{
+            background: linear-gradient(90deg, #FF6B35, #F7931E);
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 12px;
+            border-radius: 6px;
+            transition: width 2s ease;
+        }
+        .skills .skill .barra-skill span{
+            position: absolute;
+            height: 30px;
+            width: 50px;
+            background-color: #FF6B35;
+            border-radius: 15px;
+            line-height: 30px;
+            text-align: center;
+            top: -9px;
+            right: -25px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* SECCION CAPTURAS */
+        .portfolio{
+            background-color: #1e2326;
+            color: #fff;
+            padding: 50px 20px;
+        }
+        .portfolio .contenido-seccion{
+            max-width: 1100px;
+            margin: auto;
+        }
+        .portfolio h2{
+            font-size: 48px;
+            font-family: 'Righteous';
+            text-align: center;
+            padding: 20px 0;
+            color: #FF6B35;
+        }
+        .portfolio .galeria{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .portfolio .galeria .proyecto{
+            position: relative;
+            height: 200px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #FF6B35, #F7931E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .portfolio .galeria .proyecto .overlay{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background: linear-gradient(rgba(255,107,53,.9), rgba(247,147,30,.9));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: .3s;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+        .portfolio .galeria .proyecto .overlay h3{
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-family: 'Righteous';
+        }
+        .portfolio .galeria .proyecto .overlay p{
+            font-size: 14px;
+            padding: 0 20px;
+        }
+        .portfolio .galeria .proyecto:hover .overlay{
+            transform: scale(1.05);
+        }
+
+        /* SECCION CONTACTO */
+        .contacto{
+            background-color: #252A2E;
+            color: #fff;
+            padding: 50px 20px;
+        }
+        .contacto .contenido-seccion{
+            max-width: 1100px;
+            margin: auto;
+        }
+        .contacto h2{
+            font-size: 48px;
+            font-family: 'Righteous';
+            text-align: center;
+            padding: 20px 0;
+            color: #FF6B35;
+        }
+        .contacto .fila{
+            display: flex;
+            gap: 40px;
+        }
+        .contacto .col{
+            width: 50%;
+            padding: 20px;
+        }
+        .contacto .col input, .contacto .col textarea{
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #FF6B35;
+            margin-bottom: 20px;
+            background-color: #1e2326;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: .3s;
+        }
+        .contacto .col input:focus, .contacto .col textarea:focus{
+            outline: none;
+            border-color: #F7931E;
+            box-shadow: 0 0 10px rgba(255,107,53,0.3);
+        }
+        .contacto button{
+            cursor: pointer;
+            background-color: #FF6B35;
+            border: 2px solid #FF6B35;
+            width: fit-content;
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #fff;
+            border-radius: 25px;
+            transition: .3s;
+        }
+        .contacto button:hover{
+            background-color: #F7931E;
+            transform: translateY(-2px);
+        }
+        .contacto .info-proyecto{
+            background-color: #1e2326;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #FF6B35;
+        }
+        .contacto .info-proyecto ul{
+            list-style: none;
+        }
+        .contacto .info-proyecto ul li{
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #252A2E;
+            border-radius: 8px;
+            border-left: 4px solid #FF6B35;
+        }
+        .contacto .info-proyecto ul li i{
+            color: #FF6B35;
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        /* FOOTER */
+        footer{
+            background-color: #1e2326;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+        footer .redes{
+            margin-bottom: 20px;
+        }
+        footer .redes a{
+            color: #fff;
+            display: inline-block;
+            text-decoration: none;
+            border: 2px solid #FF6B35;
+            border-radius: 100%;
+            width: 50px;
+            height: 50px;
+            line-height: 46px;
+            margin: 0 10px;
+            font-size: 20px;
+            transition: .3s;
+        }
+        footer .redes a:hover{
+            background-color: #FF6B35;
+            transform: translateY(-2px);
+        }
+        footer .arriba{
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #FF6B35;
+            color: #fff;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -25px;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 18px;
+            transition: .3s;
+        }
+        footer .arriba:hover{
+            background-color: #F7931E;
+        }
+
+        /* RESPONSIVE */
+        @media screen and (max-width:980px){
+            nav{
+                display: none;
+            }
+            .nav-responsive{
+                display: block;
+            }
+            nav.responsive{
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 75px;
+                background-color: #252A2E;
+                width: 180px;
+            }
+            nav.responsive ul{
+                display: block !important;
+            }
+            nav.responsive ul li{
+                border-bottom: 1px solid #fff;
+                padding: 10px 0;
+            }
+        }
+        @media screen and (max-width:700px){
+            .sobremi .fila, .skills .fila, .contacto .fila{
+                flex-direction: column;
+            }
+            .sobremi .fila .col, .skills .fila .col, .contacto .col{
+                width: 100%;
+            }
+            .portfolio .galeria{
+                grid-template-columns: 1fr;
+            }
+            .inicio .contenido-banner .cta-buttons{
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animaciones para las barras de progreso */
+        .skills .skill .unreal{
+            width: 0%;
+            animation: 2s unreal forwards;
+        }
+        @keyframes unreal {
+            0%{width: 0%;}
+            100%{width: 95%;}
+        }
+
+        .skills .skill .realidad-virtual{
+            width: 0%;
+            animation: 2s realidad-virtual forwards;
+        }
+        @keyframes realidad-virtual {
+            0%{width: 0%;}
+            100%{width: 90%;}
+        }
+
+        .skills .skill .inteligencia-artificial{
+            width: 0%;
+            animation: 2s inteligencia-artificial forwards;
+        }
+        @keyframes inteligencia-artificial {
+            0%{width: 0%;}
+            100%{width: 85%;}
+        }
+
+        .skills .skill .modelado3d{
+            width: 0%;
+            animation: 2s modelado3d forwards;
+        }
+        @keyframes modelado3d {
+            0%{width: 0%;}
+            100%{width: 88%;}
+        }
+
+        .skills .skill .audio{
+            width: 0%;
+            animation: 2s audio forwards;
+        }
+        @keyframes audio {
+            0%{width: 0%;}
+            100%{width: 80%;}
+        }
+
+        .skills .skill .interactividad{
+            width: 0%;
+            animation: 2s interactividad forwards;
+        }
+        @keyframes interactividad {
+            0%{width: 0%;}
+            100%{width: 92%;}
+        }
+
+        .skills .skill .optimizacion{
+            width: 0%;
+            animation: 2s optimizacion forwards;
+        }
+        @keyframes optimizacion {
+            0%{width: 0%;}
+            100%{width: 87%;}
+        }
+
+        .skills .skill .multiplataforma{
+            width: 0%;
+            animation: 2s multiplataforma forwards;
+        }
+        @keyframes multiplataforma {
+            0%{width: 0%;}
+            100%{width: 85%;}
+        }
+    </style>
+</head>
+<body>
+    <!-- MENU ENCABEZADO -->
+    <div class="contenedor-header">
+        <header>
+            <div class="logo">
+                <a href="#">Cinema Simulator</a>
+            </div>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#inicio" onclick="seleccionar()">INICIO</a></li>
+                    <li><a href="#sobremi" onclick="seleccionar()">DESCRIPCIÓN</a></li>
+                    <li><a href="#skills" onclick="seleccionar()">TECNOLOGÍAS</a></li>
+                    <li><a href="#portfolio" onclick="seleccionar()">PROYECTO</a></li>
+                    <li><a href="#contacto" onclick="seleccionar()">INFORMACIÓN</a></li>
+                </ul>
+            </nav>
+            <div class="nav-responsive" onclick="mostrarOcultarMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </header>
+    </div>
+
+    <!-- SECCION INICIO -->
+    <section id="inicio" class="inicio">
+        <div class="contenido-banner">
+            <div class="logo-proyecto">
+                <i class="fa-solid fa-film"></i>
+            </div>
+            <h1>Cinema Simulator</h1>
+            <h2>Escuela Nacional de Artes Cinematográficas</h2>
+            <div class="cta-buttons">
+                <a href="#sobremi">
+                    <i class="fa-solid fa-play"></i> Descubrir Más
+                </a>
+                <a href="#portfolio">
+                    <i class="fa-solid fa-images"></i> Ver Proyecto
+                </a>
+            </div>
+        </div>
+    </section> 
+
+    <!-- SECCION SOBRE EL PROYECTO -->
+    <section id="sobremi" class="sobremi">
+        <div class="contenido-seccion">
+            <h2>Sobre el Proyecto</h2>
+            <p><span>Cinema Simulator</span> busca explorar y demostrar de forma educativa las capacidades de la realidad virtual aplicadas a las artes cinematográficas, enfocándose en la implementación técnica del equipo, la organización del proceso de producción y las dinámicas del set, la captación de sonido, entrenando la escucha de los micrófonos a través de los audífonos  y sus afectaciones dentro del espacio de grabación y su interacción con todo el crew. Este proyecto busca ofrecer una comprensión integral del impacto de la realidad virtual en la narrativa audiovisual, destacando su potencial como herramienta creativa, técnica y de entrenamiento en el ámbito cinematográfico.
+
+</p>
+            
+            <div class="fila">
+                <!-- Características del Proyecto -->
+                <div class="col">
+                    <h3>Características Principales</h3>
+                    <ul>
+                        <li>
+                            <strong>Inmersión Total:</strong>
+                            Experiencia de cine en 360° con audio espacial 3D
+                        </li>
+                        <li>
+                            <strong>Interactividad:</strong>
+                            Control de ambiente, iluminación y configuraciones
+                        </li>
+                        <li>
+                            <strong>Personalización:</strong>
+                            Múltiples salas de cine y configuraciones personalizables
+                        </li>
+                        <li>
+                            <strong>Compatibilidad:</strong>
+                            Soporte para múltiples dispositivos VR
+                        </li>
+                        <li>
+                            <strong>Realismo:</strong>
+                            Gráficos fotorrealistas y física avanzada
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Objetivos -->
+                <div class="col">
+                    <h3>Objetivos del Proyecto</h3>
+                    <div class="contenedor-caracteristicas">
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-vr-cardboard"></i>
+                            <h4>Innovación VR</h4>
+                            <p>Pioneering en experiencias cinematográficas virtuales</p>
+                        </div>
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-users"></i>
+                            <h4>Accesibilidad</h4>
+                            <p>Cine accesible desde cualquier ubicación</p>
+                        </div>
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-magic-wand-sparkles"></i>
+                            <h4>Inmersión</h4>
+                            <p>Experiencia sensorial completa y envolvente</p>
+                        </div>
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-rocket"></i>
+                            <h4>Futuro</h4>
+                            <p>Redefinir el entretenimiento audiovisual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <a href="img/Recorrido.mp4" download style="text-decoration: none;">
+    	<button>
+        Descargar Demo <i class="fa-solid fa-download"></i>
+    	</button>
+	    </a>
+        </div>
+    </section>
+
+    <!-- SECCION TECNOLOGIAS -->
+    <section class="skills" id="skills">
+        <div class="contenido-seccion">
+            <h2>Tecnologías Utilizadas</h2>
+            <div class="fila">
+                <!-- Tecnologías de Desarrollo -->
+                <div class="col">
+                    <h3>Desarrollo y Motores</h3>
+                    <div class="skill">
+                        <span>Programación C++/Blueprints</span>
+                        <div class="barra-skill">
+                            <div class="progreso unreal">
+                                <span>95%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Modelado 3D Avanzado</span>
+                        <div class="barra-skill">
+                            <div class="progreso realidad-virtual">
+                                <span>90%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Realidad Virtual SDK</span>
+                        <div class="barra-skill">
+                            <div class="progreso inteligencia-artificial">
+                                <span>85%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Animiación 3D</span>
+                        <div class="barra-skill">
+                            <div class="progreso modelado3d">
+                                <span>88%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Características Técnicas -->
+                <div class="col">
+                    <h3>Características Técnicas</h3>
+                    <div class="skill">
+                        <span>Audio Espacial 3D</span>
+                        <div class="barra-skill">
+                            <div class="progreso audio">
+                                <span>80%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Sistema de Interactividad</span>
+                        <div class="barra-skill">
+                            <div class="progreso interactividad">
+                                <span>92%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Optimización de Rendimiento</span>
+                        <div class="barra-skill">
+                            <div class="progreso optimizacion">
+                                <span>87%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <span>Compatibilidad Multiplataforma</span>
+                        <div class="barra-skill">
+                            <div class="progreso multiplataforma">
+                                <span>85%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCION CAPTURAS -->
+    <section id="portfolio" class="portfolio">
+        <div class="contenido-seccion">
+            <h2>Información del Proyecto</h2>
+            <div class="galeria">
+		<div class="proyecto" onclick="window.location.href='img/Vistaprincipal.png'">
+   		    <div class="overlay">
+    			<h3>Vista Principal</h3>
+    			<p>Vista central del estudio y la cabina de grabación</p>
+  		    </div>
+                </div>
+                <div class="proyecto" onclick="window.location.href='img/Desarrollo.mp4'" >
+                    <div class="overlay">
+                        <h3>Entorno de desarrollo</h3>
+                        <p>Vista del entorno de trabajo en Unreal Engine 5.5.4</p>
+                    </div>
+                </div>
+                <div class="proyecto" onclick="window.location.href='img/VistaExterior.png'">
+                    <div class="overlay">
+                        <h3>Vista exterior</h3>
+                        <p>Visualización del área destinada a un espacio de interacción con el usuario</p>
+                    </div>
+                </div>
+                <div class="proyecto" onclick="window.location.href='img/Recorrido.mp4'">
+                    <div class="overlay">
+                        <h3>Audio</h3>
+                        <p>Implememntación de audios que brindan una experiencia realista a cualquier locación desde la perspectiva del  usuario con rol de sonidista</p>
+                    </div>
+                </div>
+                <div class="proyecto">
+                    <div class="overlay">
+                        <h3>Iluminación</h3>
+                        <p>Sistema dinámico de iluminación hiperrealista</p>
+                    </div>
+                </div>
+                <div class="proyecto" onclick="window.location.href='img/Cinema Simulator GDD.pdf'">
+                    <div class="overlay">
+                        <h3>Documentación</h3>
+                        <p>Visualización del Game Design Document</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCION INFORMACION Y CONTACTO -->
+    <section id="contacto" class="contacto">
+        <div class="contenido-seccion">
+	<div class="fila">
+                <!-- Contactos1 -->
+		<div class="col">
+                    <h3>Datos</h3>
+                    <div class="contenedor-caracteristicas">
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-vr-cardboard"></i>
+                            <h4>Encargado del Proyecto</h4>
+                            <p>Aurora Lourdes Ojeda Coronado</p>
+                        </div>
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-users"></i>
+                            <h4>Departamento</h4>
+                            <p>Comisión de Inovación Academica, emprendimiento y sustentabilidad</p>
+                        </div>
+                    </div>
+                </div>
+
+		<!-- Contactos2 -->
+                <div class="col">
+                    <h3>Contactos</h3>
+                    <div class="contenedor-caracteristicas">
+                        <div class="caracteristica">
+                            <i class="fa-solid fa-vr-cardboard"></i>
+                            <h4>Servicio Social</h4>
+                            <p>https://siassypp.unam.mx/consulta/515286</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
