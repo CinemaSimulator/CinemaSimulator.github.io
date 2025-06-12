@@ -1,41 +1,49 @@
 let menuVisible = false;
-//Función que oculta o muestra el menu
-function mostrarOcultarMenu(){
-    if(menuVisible){
-        document.getElementById("nav").classList ="";
+
+// Función que oculta o muestra el menú
+function mostrarOcultarMenu() {
+    if (menuVisible) {
+        document.getElementById("nav").classList = "";
         menuVisible = false;
-    }else{
-        document.getElementById("nav").classList ="responsive";
+    } else {
+        document.getElementById("nav").classList = "responsive";
         menuVisible = true;
     }
 }
 
-function seleccionar(){
-    //oculto el menu una vez que selecciono una opcion
+function seleccionar() {
+    // Oculto el menú una vez que selecciono una opción
     document.getElementById("nav").classList = "";
     menuVisible = false;
 }
-//Funcion que aplica las animaciones de las habilidades
-function efectoHabilidades(){
+
+// Función que aplica las animaciones de las habilidades
+function efectoHabilidades() {
     var skills = document.getElementById("skills");
     var distancia_skills = window.innerHeight - skills.getBoundingClientRect().top;
-    if(distancia_skills >= 300){
+    
+    if (distancia_skills >= 300) {
         let habilidades = document.getElementsByClassName("progreso");
-        habilidades[0].classList.add("javascript");
-        habilidades[1].classList.add("htmlcss");
-        habilidades[2].classList.add("unrealengine");
-        habilidades[3].classList.add("opentoonz");
-        habilidades[4].classList.add("blender");
-        habilidades[5].classList.add("comunicacion");
-        habilidades[6].classList.add("trabajo");
-        habilidades[7].classList.add("creatividad");
-        habilidades[8].classList.add("proyectM");
-        habilidades[9].classList.add("liderazgo");
+        
+        // Aplicar animaciones a cada barra de progreso
+        for (let i = 0; i < habilidades.length; i++) {
+            let clase = habilidades[i].classList[1]; // Obtener la segunda clase (unreal, realidad-virtual, etc.)
+            habilidades[i].style.width = "0%"; // Resetear antes de animar
+            
+            // Usar setTimeout para asegurar que el reset se aplique antes de la animación
+            setTimeout(() => {
+                habilidades[i].style.width = habilidades[i].querySelector("span").textContent;
+            }, 100);
+        }
     }
 }
 
-
-//detecto el scrolling para aplicar la animacion de la barra de habilidades
-window.onscroll = function(){
+// Detectar scrolling para aplicar la animación de la barra de habilidades
+window.onscroll = function() {
     efectoHabilidades();
-} 
+}
+
+// Inicializar animaciones al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    efectoHabilidades();
+});
